@@ -1,4 +1,4 @@
-string input = Console.ReadLine();
+ string input = Console.ReadLine();
             string[] inputScore = Console.ReadLine().Split();
             double[] score = new double[inputScore.Length];
             double output = 0;
@@ -20,4 +20,3 @@ string input = Console.ReadLine();
             }
 
             Console.WriteLine(output/score.Length);
-            
