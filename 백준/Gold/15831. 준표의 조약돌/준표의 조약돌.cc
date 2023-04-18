@@ -1,43 +1,35 @@
 #include <iostream>
-#include <list>
+#include <deque>
 using namespace std;
 
 int main()
 {
-    int N, B, W;
-    cin >> N >> B >> W;
-    list<char> l;
-    list<char> :: iterator start;
-    while(N--)
+    int N,B,W;
+    string input;
+    cin >> N >> B >> W >> input;
+    deque<char> d;
+    int white=0,black=0,result=0;
+    for(int i=0; i<N; i++)
     {
-        char c;
-        cin >> c;
-        l.push_back(c);
-    }
-    int length = (int)l.size();
-    start = l.begin();
-    int answer = 0;
-    while(length--)
-    {
-        int tempAnswer = 0,tempW=0,tempB=0;
-        for(list<char>::iterator i = start; i!=l.end(); i++)
+        d.push_back(input[i]);
+        if(input[i] == 'W')
+            white++;
+        else
+            black++;
+        if(black<=B && white>= W)
+            result = max(result,(int)d.size());
+        else if(black > B)
         {
-            if(*i == 'W')
+            while(black > B)
             {
-                tempW++;
-                tempAnswer++;
+                char c = d.front();
+                d.pop_front();
+                if(c=='W')
+                    white--;
+                else
+                    black--;
             }
-            else
-            {
-                tempB++;
-                tempAnswer++;
-            }
-            if(tempB>B)
-                break;
-            else if(tempW>=W && tempAnswer>answer)
-                answer = tempAnswer;
         }
-        start++;
     }
-    cout << answer;
+    cout << result;
 }
