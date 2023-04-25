@@ -22,8 +22,7 @@
             int tempIdx = 0;
             for(int i=3; i < n/2+1; i+=2)
             {
-               if(!isPrime[i])
-                   if(!isPrime[n-i])
+               if(!isPrime[i] && !isPrime[n-i])
                    {
                        tempIdx=i;
                        isFind=true;
