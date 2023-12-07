@@ -14,26 +14,23 @@ typedef struct edge{
 
 vector<edge> kruskal_vec;
 
-int prim(edge root){
-    vector<edge> vec;
-    int vertex = root.v1;
-    is_visit[vertex] = true;
-    while(vec.size() != v-1){
-        edge temp;
-        int min = inf;
-        for(int i=0; i<graph[vertex].size(); i++){
-            if(graph[vertex][i].second < min && !is_visit[graph[vertex][i].first]){
-                min = graph[vertex][i].second;
-                temp = {vertex, graph[vertex][i].first, graph[vertex][i].second};
+int prim(){
+    priority_queue<pair<int, int>> pq;
+    int result = 0;
+    pq.push({0, 1});
+    while(!pq.empty()){
+        int vertex = pq.top().second;
+        int dist = -pq.top().first;
+        pq.pop();
+        if(!is_visit[vertex]){
+            is_visit[vertex] = true;
+            result += dist;
+            for(int i=0; i<graph[vertex].size(); i++){
+                if(!is_visit[graph[vertex][i].first])
+                    pq.push({-graph[vertex][i].second, graph[vertex][i].first});
             }
         }
-        vec.push_back(temp);
-        vertex = temp.v2;
-        is_visit[vertex] = true;
     }
-    int result = 0;
-    for(auto i : vec)
-        result += i.distance;
     return result;
 }
 
@@ -86,7 +83,7 @@ int main(){
         if(i==0)
             root = {a, b, c};
     }
-    cout << kruskal();
-    //cout << prim(root);
+   // cout << kruskal();
+    cout << prim();
     return 0;
 }
